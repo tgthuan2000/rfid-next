@@ -2,7 +2,7 @@ import clsx from 'clsx'
 import { HomeIcon, TemplateIcon } from '@heroicons/react/outline'
 import Image from 'next/image'
 import Link from 'next/link'
-import { SLUG } from '../constants/slug'
+import { SLUG } from 'constants/slug'
 import { useRouter } from 'next/router'
 
 const navigation = [
@@ -56,7 +56,7 @@ const Layout = ({ children }) => {
 			<div className='md:pl-64 flex flex-col flex-1 min-h-screen'>
 				<main className='bg-gray-100 flex-1'>
 					<div className='py-6'>
-						<div className='max-w-7xl mx-auto px-4 sm:px-6 md:px-8'>
+						<div className='px-4 sm:px-6 md:px-8'>
 							{/* Replace with your content */}
 							<div className='py-4'>{children}</div>
 							{/* /End replace */}

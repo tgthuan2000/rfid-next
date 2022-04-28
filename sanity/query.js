@@ -32,7 +32,7 @@ export const product = {
             _id,
             name
         }
-    } [$start...$end]
+    } | order(_createdAt desc) [$start...$end]
 `,
 
 	GET_ONE: `
@@ -60,5 +60,29 @@ export const categoryProduct = {
             _id,
             name
         }
+    `,
+}
+
+export const rfid = {
+	GET_LIST: `
+        *[_type == 'mapping'] {
+            _id,
+            rfid,
+            code_product-> {
+                _id,
+                name,
+                barcode,
+                image,
+                categoryProduct-> {
+                    _id,
+                    name
+                }
+            },
+            warehouse-> {
+                _id,
+                address,
+                name
+            }
+        } | order(_createdAt desc) [$start...$end]
     `,
 }

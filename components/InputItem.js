@@ -1,12 +1,14 @@
 import clsx from 'clsx'
+import { forwardRef } from 'react'
 
-const InputItem = ({ label = 'Label', className, type = 'text', ...props }) => {
+const InputItem = forwardRef(({ label = 'Label', className, type = 'text', ...props }, ref) => {
 	return (
 		<div className={clsx('sm:col-span-3', className)}>
 			<label htmlFor={label} className='block text-sm font-medium text-gray-700'>
 				{label}
 			</label>
 			<input
+				ref={ref}
 				id={label}
 				type={type}
 				autoComplete='off'
@@ -15,6 +17,6 @@ const InputItem = ({ label = 'Label', className, type = 'text', ...props }) => {
 			/>
 		</div>
 	)
-}
+})
 
 export default InputItem

@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import ProductForm from '../../components/ProductForm'
+import ProductForm from 'components/ProductForm'
 
 const AddProduct = () => {
 	return (

@@ -1,11 +1,11 @@
 import Head from 'next/head'
 import Link from 'next/link'
 import NumberFormat from 'react-number-format'
-import { SLUG } from '../../constants/slug'
-import { urlFor } from '../../sanity/client'
+import { SLUG } from 'constants/slug'
+import { urlFor } from 'sanity/client'
 import Image from 'next/image'
-import { useQueries } from '../../hooks/useQuery'
-import { product } from '../../sanity/query'
+import { useQueries } from 'hooks/useQuery'
+import { product } from 'sanity/query'
 import clsx from 'clsx'
 import { Waypoint } from 'react-waypoint'
 
@@ -60,12 +60,6 @@ const Product = () => {
 														{header}
 													</th>
 												))}
-												<th
-													scope='col'
-													className='sticky top-0 z-10 border-b border-gray-300 bg-gray-50 bg-opacity-75 py-3.5 pr-4 pl-3 backdrop-blur backdrop-filter sm:pr-6 lg:pr-8'
-												>
-													<span className='sr-only'>Edit</span>
-												</th>
 											</tr>
 										</thead>
 										<tbody className='bg-white'>
@@ -133,27 +127,6 @@ const Product = () => {
 															displayType='text'
 															thousandSeparator
 														/>
-													</td>
-													<td
-														className={clsx(
-															index !== productData.length - 1 &&
-																'border-b border-gray-200',
-															'relative whitespace-nowrap py-4 pr-4 pl-3 text-right text-sm font-medium sm:pr-6 lg:pr-8'
-														)}
-													>
-														<Link
-															href={
-																SLUG.PRODUCT +
-																'/' +
-																item.slug?.current
-															}
-															passHref
-														>
-															<a className='text-cyan-600 font-semibold underline hover:text-cyan-900'>
-																Sửa
-																<span className='sr-only'></span>
-															</a>
-														</Link>
 													</td>
 												</tr>
 											))}

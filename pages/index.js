@@ -1,19 +1,26 @@
 import Head from 'next/head'
-import Link from 'next/link'
-import NumberFormat from 'react-number-format'
-import { SLUG } from '../constants/slug'
-import { urlFor } from '../sanity/client'
+import { urlFor } from 'sanity/client'
 import Image from 'next/image'
-import { useQueries } from '../hooks/useQuery'
-import { rfid } from '../sanity/query'
+import { useQueries } from 'hooks/useQuery'
+import { rfid } from 'sanity/query'
 import clsx from 'clsx'
 import { Waypoint } from 'react-waypoint'
 import { CSVLink } from 'react-csv'
 
-const headers = ['Sản phẩm', 'Barcode', 'Giá', 'Số lượng']
+const headers = ['Sản phẩm', 'Barcode', 'RFID', 'ID mapping']
+
+const exportCSV = (data = []) => {
+	return data.map((item) => ({
+		ID: item._id,
+		PRODUCT: item.code_product.barcode.current + ' - ' + item.code_product.name,
+		RFID: item.rfid,
+		WAREHOUSE: item.warehouse.name + ' - ' + item.warehouse.address,
+	}))
+}
 
 const Home = () => {
 	const { store: productData, loading, isEnd, refetch } = useQueries(rfid.GET_LIST)
+	console.log(productData)
 	return (
 		<>
 			<Head>
@@ -28,7 +35,11 @@ const Home = () => {
 						<div className='mt-4 sm:mt-0 sm:ml-16 sm:flex-none'>
 							<CSVLink
 								className='min-w-[120px] inline-flex font-semibold items-center justify-center rounded-md border border-transparent bg-green-600 px-4 py-2 text-sm text-white shadow-sm hover:bg-green-700 sm:w-auto'
-								data={productData}
+								data={exportCSV(productData)}
+								// separator=';'
+								// enclosingCharacter="'"
+								target='_blank'
+								filename='export.csv'
 							>
 								Xuất báo cáo
 							</CSVLink>
@@ -60,12 +71,6 @@ const Home = () => {
 														{header}
 													</th>
 												))}
-												<th
-													scope='col'
-													className='sticky top-0 z-10 border-b border-gray-300 bg-gray-50 bg-opacity-75 py-3.5 pr-4 pl-3 backdrop-blur backdrop-filter sm:pr-6 lg:pr-8'
-												>
-													<span className='sr-only'>Edit</span>
-												</th>
 											</tr>
 										</thead>
 										<tbody className='bg-white'>
@@ -81,7 +86,9 @@ const Home = () => {
 														<div className='flex items-center space-x-2'>
 															<div className='flex-shrink-0'>
 																<Image
-																	src={urlFor(item.image)}
+																	src={urlFor(
+																		item.code_product.image
+																	)}
 																	alt=''
 																	layout='fixed'
 																	width={60}
@@ -90,10 +97,13 @@ const Home = () => {
 															</div>
 															<div>
 																<div className='font-medium text-gray-900'>
-																	{item.name}
+																	{item.code_product.name}
 																</div>
 																<div className='text-gray-500 text-xs'>
-																	{item.categoryProduct.name}
+																	{
+																		item.code_product
+																			.categoryProduct.name
+																	}
 																</div>
 															</div>
 														</div>
@@ -106,7 +116,7 @@ const Home = () => {
 															'whitespace-nowrap px-3 py-4 text-sm text-gray-500 font-semibold'
 														)}
 													>
-														{item.barcode?.current || '-'}
+														{item.code_product.barcode?.current || '-'}
 													</td>
 													<td
 														className={clsx(
@@ -115,11 +125,7 @@ const Home = () => {
 															'whitespace-nowrap px-3 py-4 text-sm text-gray-500 hidden sm:table-cell'
 														)}
 													>
-														<NumberFormat
-															value={item.price}
-															displayType='text'
-															thousandSeparator
-														/>
+														{item.rfid || '-'}
 													</td>
 													<td
 														className={clsx(
@@ -128,32 +134,7 @@ const Home = () => {
 															'whitespace-nowrap px-3 py-4 text-sm text-gray-500 hidden lg:table-cell'
 														)}
 													>
-														<NumberFormat
-															value={item.quantity}
-															displayType='text'
-															thousandSeparator
-														/>
-													</td>
-													<td
-														className={clsx(
-															index !== productData.length - 1 &&
-																'border-b border-gray-200',
-															'relative whitespace-nowrap py-4 pr-4 pl-3 text-right text-sm font-medium sm:pr-6 lg:pr-8'
-														)}
-													>
-														<Link
-															href={
-																SLUG.PRODUCT +
-																'/' +
-																item.slug?.current
-															}
-															passHref
-														>
-															<a className='text-cyan-600 font-semibold underline hover:text-cyan-900'>
-																Sửa
-																<span className='sr-only'></span>
-															</a>
-														</Link>
+														{item._id || '-'}
 													</td>
 												</tr>
 											))}
