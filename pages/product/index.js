@@ -1,37 +1,37 @@
 import Head from 'next/head'
 import Link from 'next/link'
 import NumberFormat from 'react-number-format'
-import { SLUG } from '../constants/slug'
-import { urlFor } from '../sanity/client'
+import { SLUG } from '../../constants/slug'
+import { urlFor } from '../../sanity/client'
 import Image from 'next/image'
-import { useQueries } from '../hooks/useQuery'
-import { rfid } from '../sanity/query'
+import { useQueries } from '../../hooks/useQuery'
+import { product } from '../../sanity/query'
 import clsx from 'clsx'
 import { Waypoint } from 'react-waypoint'
-import { CSVLink } from 'react-csv'
 
 const headers = ['Sản phẩm', 'Barcode', 'Giá', 'Số lượng']
 
-const Home = () => {
-	const { store: productData, loading, isEnd, refetch } = useQueries(rfid.GET_LIST)
+const Product = () => {
+	const { store: productData, loading, isEnd, refetch } = useQueries(product.GET_LIST)
 	return (
 		<>
 			<Head>
-				<title>Dashboard | Home</title>
+				<title>Dashboard | Product</title>
 			</Head>
 			<div>
 				<div className='px-4 sm:px-6 lg:px-8'>
 					<div className='sm:flex sm:items-center -mx-4 sm:-mx-6 lg:-mx-8'>
 						<div className='sm:flex-auto'>
-							<h1 className='text-3xl font-semibold text-gray-900'>Trang chủ</h1>
+							<h1 className='text-3xl font-semibold text-gray-900'>
+								Quản lý sản phẩm
+							</h1>
 						</div>
 						<div className='mt-4 sm:mt-0 sm:ml-16 sm:flex-none'>
-							<CSVLink
-								className='min-w-[120px] inline-flex font-semibold items-center justify-center rounded-md border border-transparent bg-green-600 px-4 py-2 text-sm text-white shadow-sm hover:bg-green-700 sm:w-auto'
-								data={productData}
-							>
-								Xuất báo cáo
-							</CSVLink>
+							<Link href={SLUG.PRODUCT_ADD} passHref>
+								<button className='min-w-[120px] inline-flex font-semibold items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm text-white shadow-sm hover:bg-indigo-700 sm:w-auto'>
+									Thêm sản phẩm
+								</button>
+							</Link>
 						</div>
 					</div>
 					<div className='mt-6 flex flex-col'>
@@ -175,4 +175,4 @@ const Home = () => {
 		</>
 	)
 }
-export default Home
+export default Product
