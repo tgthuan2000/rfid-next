@@ -45,10 +45,10 @@ const ProductForm = ({ title }) => {
 						_type: 'reference',
 					},
 				},
-				barcode: {
-					_type: 'slug',
-					current: (Math.random() * 1000000000000000).toString().substring(0, 13),
-				},
+				// barcode: {
+				// 	_type: 'slug',
+				// 	current: (Math.random() * 1000000000000000).toString().substring(0, 13),
+				// },
 				description: desc,
 				name,
 				price: Number(price),
