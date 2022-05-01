@@ -45,7 +45,7 @@ const ProductForm = ({ title }) => {
 						_type: 'reference',
 					},
 				},
-				bacode: {
+				barcode: {
 					_type: 'barcode',
 					current: (Math.random() * 1000000000000000).toString().substring(0, 13),
 				},
