@@ -18,7 +18,7 @@ export const product = {
     `,
 
 	GET_LIST: `
-    *[_type == 'product'] {
+    *[_type == 'product'] | order(_createdAt desc) {
         _id,
         _createAt,
         name,
@@ -32,7 +32,7 @@ export const product = {
             _id,
             name
         }
-    } | order(_createdAt desc) [$start...$end]
+    } [$start...$end]
 `,
 
 	GET_ONE: `
@@ -65,7 +65,7 @@ export const categoryProduct = {
 
 export const rfid = {
 	GET_LIST: `
-        *[_type == 'mapping'] {
+        *[_type == 'mapping'] | order(_createdAt desc) {
             _id,
             rfid,
             code_product-> {
@@ -83,6 +83,6 @@ export const rfid = {
                 address,
                 name
             }
-        } | order(_createdAt desc) [$start...$end]
+        } [$start...$end]
     `,
 }

@@ -45,6 +45,10 @@ const ProductForm = ({ title }) => {
 						_type: 'reference',
 					},
 				},
+				barcode: {
+					_type: 'slug',
+					current: (Math.random() * 1000000000000000).toString().substring(0, 13),
+				},
 				description: desc,
 				name,
 				price: Number(price),
@@ -91,6 +95,7 @@ const ProductForm = ({ title }) => {
 							<Controller
 								control={control}
 								name='name'
+								rules={{ required: 'Yêu cầu nhập tên' }}
 								render={({ field }) => (
 									<InputItem label='Tên sản phẩm' {...field} />
 								)}
