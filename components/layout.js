@@ -6,7 +6,7 @@ import { SLUG } from 'constants/slug'
 import { useRouter } from 'next/router'
 
 const navigation = [
-	{ name: 'Trang chủ', href: SLUG.HOME, icon: HomeIcon },
+	{ name: 'Trang chủ', href: SLUG.DASHBOARD, icon: HomeIcon },
 	{ name: 'Quản lý sản phẩm', href: SLUG.PRODUCT, icon: TemplateIcon },
 ]
 
@@ -35,7 +35,7 @@ const Layout = ({ children }) => {
 								<Link key={item.name} href={item.href}>
 									<a
 										className={clsx(
-											router.asPath === item.href
+											router.asPath.includes(item.href)
 												? 'bg-gray-700 text-white font-semibold'
 												: 'text-gray-100 hover:bg-gray-600 font-medium',
 											'group flex items-center px-2 py-2 text-sm rounded-md'

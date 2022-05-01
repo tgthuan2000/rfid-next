@@ -65,7 +65,7 @@ export const categoryProduct = {
 
 export const rfid = {
 	GET_LIST: `
-        *[_type == 'mapping'] | order(_createdAt desc) {
+        *[_type == 'mapping' && references($batchId)] | order(_createdAt desc) {
             _id,
             rfid,
             code_product-> {
@@ -82,7 +82,69 @@ export const rfid = {
                 _id,
                 address,
                 name
+            },
+            batch-> {
+                _id,
+                name
             }
-        } [$start...$end]
+        }
     `,
+
+	GET_MAPPING: `*[_type == 'mapping'] | order(_createdAt desc) {
+        _id,
+        rfid,
+        code_product-> {
+            _id,
+            name,
+            barcode,
+            image,
+            categoryProduct-> {
+                _id,
+                name
+            }
+        },
+        warehouse-> {
+            _id,
+            address,
+            name
+        },
+        batch-> {
+            _id,
+            name
+        }
+    }`,
+
+	GETBY_MAPPING: `*[_type == 'mapping' && _id == $_id] {
+        _id,
+        rfid,
+        code_product-> {
+            _id,
+            name,
+            barcode,
+            image,
+            categoryProduct-> {
+                _id,
+                name
+            }
+        },
+        warehouse-> {
+            _id,
+            address,
+            name
+        },
+        batch-> {
+            _id,
+            name
+        }
+    }`,
+
+	GET_BATCH: `
+    *[_type == 'batch'] | order(_createdAt desc) {
+        _id,
+        name,
+        _createdAt,
+        _updatedAt,
+        count
+    }
+`,
 }
