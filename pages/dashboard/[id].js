@@ -43,7 +43,8 @@ const Detail = () => {
 								onClick={() => router.back()}
 							/>
 							<h1 className='text-3xl font-semibold text-gray-900'>
-								Chi tiết mapping | {productData[0]?.batch.name}
+								Chi tiết mapping{' '}
+								{productData[0]?.batch.name && '| ' + productData[0]?.batch.name}
 							</h1>
 						</div>
 						<div className='mt-4 sm:mt-0 sm:ml-16 sm:flex-none'>

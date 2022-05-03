@@ -20,13 +20,13 @@ const Layout = ({ children }) => {
 				<div className='flex flex-col flex-grow pt-5 bg-gray-800 overflow-y-auto'>
 					{/* Logo */}
 					<div className='flex mt-5 items-center flex-shrink-0 px-4'>
-						<Image
+						{/* <Image
 							src='https://tailwindui.com/img/logos/workflow-logo-indigo-300-mark-white-text.svg'
 							alt='Workflow'
 							layout='fixed'
 							height={32}
 							width={150}
-						/>
+						/> */}
 					</div>
 					{/* Logo */}
 					<div className='mt-14 flex-1 flex flex-col'>
