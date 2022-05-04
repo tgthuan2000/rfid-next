@@ -189,7 +189,7 @@ const GroupView = () => {
 }
 
 const AllView = () => {
-	const headers = ['Sản phẩm', 'Barcode', 'Thời gian tạo', 'RFID', 'ID mapping', 'Đợt']
+	const headers = ['Sản phẩm', 'Barcode', 'Thời gian cập nhật', 'RFID', 'ID mapping', 'Đợt']
 	const { data, loading, push, deleteAt, updatedAt } = useQuery(rfid.GET_MAPPING)
 
 	useEffect(() => {
@@ -204,15 +204,28 @@ const AllView = () => {
 				d = res[0]
 			}
 
-			const { batch, code_product, warehouse, rfid: _rfid } = d
+			const { batch, code_product, warehouse, rfid: _rfid, _updatedAt } = d
 
 			switch (transition) {
 				case 'appear': {
-					push({ _id: documentId, batch, code_product, warehouse, rfid: _rfid })
+					push({
+						_id: documentId,
+						_updatedAt,
+						batch,
+						code_product,
+						warehouse,
+						rfid: _rfid,
+					})
 					break
 				}
 				case 'update': {
-					updatedAt(documentId, { batch, code_product, warehouse, rfid: _rfid })
+					updatedAt(documentId, {
+						_updatedAt,
+						batch,
+						code_product,
+						warehouse,
+						rfid: _rfid,
+					})
 					break
 				}
 				case 'disappear': {
@@ -318,7 +331,7 @@ const AllView = () => {
 													'whitespace-nowrap px-3 py-4 text-sm text-gray-600'
 												)}
 											>
-												{new Date(item._createdAt).toLocaleString()}
+												{new Date(item._updatedAt).toLocaleString()}
 											</td>
 											<td
 												className={clsx(

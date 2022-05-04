@@ -119,7 +119,7 @@ export const rfid = {
     `,
 
 	SEARCH_MAPPING: `
-        *[_type == 'mapping' && $start <= _createdAt && _createdAt <= $end] | order(_createdAt desc) {
+        *[_type == 'mapping' && $start <= _updatedAt && _updatedAt <= $end] | order(_updatedAt desc) {
             _id,
             _createdAt,
             _updatedAt,
@@ -148,6 +148,8 @@ export const rfid = {
 
 	GETBY_MAPPING: `*[_type == 'mapping' && _id == $_id] {
         _id,
+        _createdAt,
+        _updatedAt,
         rfid,
         code_product-> {
             _id,

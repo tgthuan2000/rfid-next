@@ -9,12 +9,12 @@ import DatePicker from 'react-datepicker'
 import { client, urlFor } from 'sanity/client'
 import { rfid } from 'sanity/query'
 
-const headers = ['Sản phẩm', 'Barcode', 'Thời gian tạo', 'RFID', 'ID mapping', 'Đợt']
+const headers = ['Sản phẩm', 'Barcode', 'Thời gian cập nhật', 'RFID', 'ID mapping', 'Đợt']
 
 const exportCSV = (data = []) => {
 	return data.map((item) => ({
 		BARCODE_RFID: item._id,
-		CREATED_AT: new Date(item._createdAt).toLocaleString(),
+		UPDATED_AT: new Date(item._updatedAt).toLocaleString(),
 		BATCH: item.batch || '-',
 		RFID: item.rfid,
 		BARCODE: item.code_product.barcode.current,
@@ -211,7 +211,7 @@ const Export = () => {
 															'whitespace-nowrap px-3 py-4 text-sm text-gray-600'
 														)}
 													>
-														{new Date(item._createdAt).toLocaleString()}
+														{new Date(item._updatedAt).toLocaleString()}
 													</td>
 													<td
 														className={clsx(
