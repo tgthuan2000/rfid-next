@@ -90,29 +90,61 @@ export const rfid = {
         }
     `,
 
-	GET_MAPPING: `*[_type == 'mapping'] | order(_createdAt desc) {
-        _id,
-        rfid,
-        code_product-> {
+	GET_MAPPING: `
+        *[_type == 'mapping'] | order(_createdAt desc) {
             _id,
-            name,
-            barcode,
-            image,
-            categoryProduct-> {
+            _createdAt,
+            _updatedAt,
+            rfid,
+            code_product-> {
+                _id,
+                name,
+                barcode,
+                image,
+                categoryProduct-> {
+                    _id,
+                    name
+                }
+            },
+            warehouse-> {
+                _id,
+                address,
+                name
+            },
+            batch-> {
                 _id,
                 name
             }
-        },
-        warehouse-> {
-            _id,
-            address,
-            name
-        },
-        batch-> {
-            _id,
-            name
         }
-    }`,
+    `,
+
+	SEARCH_MAPPING: `
+        *[_type == 'mapping' && $start <= _createdAt && _createdAt <= $end] | order(_createdAt desc) {
+            _id,
+            _createdAt,
+            _updatedAt,
+            rfid,
+            code_product-> {
+                _id,
+                name,
+                barcode,
+                image,
+                categoryProduct-> {
+                    _id,
+                    name
+                }
+            },
+            warehouse-> {
+                _id,
+                address,
+                name
+            },
+            batch-> {
+                _id,
+                name
+            }
+        }
+    `,
 
 	GETBY_MAPPING: `*[_type == 'mapping' && _id == $_id] {
         _id,

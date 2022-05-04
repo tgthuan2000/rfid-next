@@ -54,7 +54,9 @@ const Detail = () => {
 								// separator=';'
 								// enclosingCharacter="'"
 								target='_blank'
-								filename={productData[0]?.batch.name + '.csv'}
+								filename={
+									productData[0]?.batch.name + new Date().toISOString() + '.csv'
+								}
 							>
 								Xuất báo cáo
 							</CSVLink>
