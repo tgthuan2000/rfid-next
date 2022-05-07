@@ -15,9 +15,9 @@ const exportCSV = (data = []) => {
 	return data.map((item) => ({
 		BARCODE_RFID: item._id,
 		UPDATED_AT: new Date(item._updatedAt).toLocaleString(),
-		BATCH: item.batch || '-',
-		RFID: item.rfid,
-		BARCODE: item.code_product.barcode.current,
+		BATCH: item.batch.name || '-',
+		RFID: "'" + item.rfid,
+		BARCODE: "'" + item.code_product.barcode.current,
 		PRODUCT: item.code_product.name,
 		WAREHOUSE: item.warehouse.name + ' - ' + item.warehouse.address,
 	}))
